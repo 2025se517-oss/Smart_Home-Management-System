@@ -1,0 +1,34 @@
+#ifndef SMARTDEVICE_H
+#define SMARTDEVICE_H
+#include<iostream>
+#include<string>
+#include<fstream>
+using namespace std;
+class SmartDevice{
+protected:
+    int deviceID;
+    string name;
+    string location;
+    bool isOn;
+    string firmwareVersion;
+    static int deviceCount;
+public:
+    SmartDevice(int id,string n,string loc,string firmware);
+    SmartDevice(const SmartDevice& obj);
+    virtual ~SmartDevice();
+    int getDeviceID() const;
+    string getName() const;
+    string getLocation() const;
+    bool getState() const;
+    void setName(string n);
+    void setLocation(string loc);
+    virtual void toggle()=0;
+    virtual void getStatus() const=0;
+    virtual void generateReport() const=0;
+    virtual void serialize(ofstream& out) const=0;
+    static SmartDevice* deserialize(ifstream& in);
+    static int getDeviceCount();
+    bool operator==(const SmartDevice& other);
+    friend ostream& operator<<(ostream& out,const SmartDevice& obj);
+};
+#endif

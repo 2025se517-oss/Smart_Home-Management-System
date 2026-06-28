@@ -1,0 +1,21 @@
+#ifndef ENERGYLOG_H
+#define ENERGYLOG_H
+#include<iostream>
+#include<string>
+using namespace std;
+class SmartDevice;
+class EnergyLog{
+    private:
+    int logID;
+    SmartDevice* deviceReference;
+    double kilowattHours;
+    string timestamp;
+    public:
+    EnergyLog(int id,SmartDevice* device,double kwh,string time);
+    EnergyLog(const EnergyLog& obj);
+    ~EnergyLog();
+    void recordUsage(double kwh);
+    void getMonthlyReport() const;
+    double compareToAverage(double avg) const;
+};
+#endif
